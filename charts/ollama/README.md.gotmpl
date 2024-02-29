@@ -1,0 +1,191 @@
+# Ollama Helm
+
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+{{ template "chart.description" . }}
+
+## TL;DR
+
+```sh
+helm repo add braveokafor https://braveokafor.github.io/helm-charts/
+helm install ollama braveokafor/ollama
+```
+
+#### OR: 
+
+```sh
+helm repo add braveokafor https://charts.braveokafor.com
+helm install ollama braveokafor/ollama
+```
+
+## Introduction
+
+This chart facilitates the deployment of [Ollama](https://github.com/jmorganca/ollama/) on Kubernetes clusters, offering a wide range of configuration options. 
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+
+## Installing the Chart
+
+To install the chart with the release name `ollama`:
+
+```sh
+helm install ollama braveokafor/ollama
+```
+
+The command deploys Ollama on the Kubernetes cluster in the default configuration. 
+
+The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+
+> **Tip**: List all releases using `helm list`
+
+## Uninstalling the Chart
+
+To uninstall/delete the `ollama` deployment:
+
+```sh
+helm delete ollama
+```
+
+The command removes all the Kubernetes components associated with the chart and deletes the release.
+
+## Configuration and installation details
+
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+
+```console
+helm install ollama \
+  --set ollama.gpu.enabled=true \
+    braveokafor/ollama
+```
+The above command enables GPU support for Ollama.
+
+Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart. For example:
+
+```console
+helm install ollama -f values.yaml braveokafor/ollama
+```
+
+Example fully configured `values.yaml`:
+
+```yaml
+# values.yaml
+ollama:
+  gpu:
+    enabled: "true"
+    num: 1
+  models:
+    - mistral
+    - gemma:2b
+    - codellama:python
+nodeSelector:
+  cloud.google.com/gke-accelerator: "nvidia-tesla-t4"
+resources:
+  requests:
+    memory: 8192Mi
+    cpu: 4000m
+ingress:
+  enabled: true
+  hostname: ollama.braveokafor.com
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: ollama
+    ingressClassName: gce
+  tls:
+    enabled: true
+    selfSigned: true
+```
+
+## Features
+- **GPU Integration**: Enable GPU support (NVIDIA).
+- **Model Management**: Pre-configure the Ollama container to pull specific models at startup.
+- **Scalability**: Configure the number of replicas or leverage Horizontal Pod Autoscaler (HPA) to scale on CPU or memory usage.
+- **Storage and Persistence**: Enable persistent storage to save models beyond the lifecycle of individual pods (NOTE: You'll need a supported Storage Class).
+
+
+## Overrides
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if or (eq .Key "nameOverride") (eq .Key "fullnameOverride") }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## Ollama parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if hasPrefix "ollama" .Key }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## Image parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if hasPrefix "image" .Key }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## General parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if not (or  (hasPrefix "ollama" .Key) (hasPrefix "image" .Key) (hasPrefix "ingress" .Key) (hasPrefix "service" .Key) (hasPrefix "persistence" .Key) (hasPrefix "serviceAccount" .Key) (or (eq .Key "nameOverride") (eq .Key "fullnameOverride"))) }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## Service parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if hasPrefix "service" .Key }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## Persistence parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if hasPrefix "persistence" .Key }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## Service account parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if hasPrefix "serviceAccount" .Key }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+## Ingress parameters
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+{{- range .Values }}
+  {{- if hasPrefix "ingress" .Key }}
+| {{ .Key }} | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs](https://github.com/norwoodj/helm-docs)
