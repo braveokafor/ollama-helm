@@ -1,0 +1,30 @@
+apiVersion: v1
+entries:
+  ollama:
+  - annotations:
+      licenses: MIT
+    apiVersion: v2
+    appVersion: 0.1.27
+    created: "2024-02-29T16:46:42.028463347Z"
+    description: Chart to deploy Ollama, a Client for running Large Language Models
+      (LLM).
+    digest: 1d3c1ab1b5bc0331fae66ebe4d8c9b01c7f2cbb725fc13f399d4ab2ad94799e7
+    home: https://ollama.ai/
+    icon: https://ollama.ai/public/ollama.png
+    keywords:
+    - ai
+    - ollama
+    - llm
+    - llama
+    maintainers:
+    - email: brave@braveokafor.com
+      name: braveokafor
+      url: https://braveokafor.com/
+    name: ollama
+    sources:
+    - https://github.com/jmorganca/ollama/
+    - https://github.com/braveokafor/ollama-helm/
+    urls:
+    - https://github.com/braveokafor/ollama-helm/releases/download/0.1.0-helm/ollama-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-02-29T16:46:42.028471843Z"
