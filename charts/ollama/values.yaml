@@ -90,7 +90,7 @@ image:
   repository: "ollama/ollama"
   # -- Tag to use for Ollama
   # @default -- `""` (defaults to Chart.AppVersion)
-  tag: "" # defaults to Chart.AppVersion
+  tag: ""  # defaults to Chart.AppVersion
   # -- Image pull policy for Ollama
   imagePullPolicy: "IfNotPresent"
 
