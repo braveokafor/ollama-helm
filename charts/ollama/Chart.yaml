@@ -7,7 +7,6 @@ name: ollama
 description: "Chart to deploy Ollama, a Client for running Large Language Models (LLM)."
 home: https://ollama.ai/
 icon: https://ollama.ai/public/ollama.png
-kubeVersion: "^1.26.0-0"
 maintainers:
   - email: brave@braveokafor.com
     name: braveokafor

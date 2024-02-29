@@ -22,11 +22,6 @@ helm install ollama braveokafor/ollama
 
 This chart facilitates the deployment of [Ollama](https://github.com/jmorganca/ollama/) on Kubernetes clusters, offering a wide range of configuration options.
 
-## Prerequisites
-
-- Kubernetes: `^1.26.0-0`
-- Helm v3.0.0+
-
 ## Source Code
 
 * <https://github.com/jmorganca/ollama/>
