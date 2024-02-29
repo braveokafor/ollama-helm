@@ -64,7 +64,7 @@ jobs:
           CR_SKIP_EXISTING: true
           CR_GENERATE_RELEASE_NOTES: true
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_RELEASE_NAME_TEMPLATE: "{{ .Version }}-helm"
+          CR_RELEASE_NAME_TEMPLATE: "{{ .Version }}"
 
       - name: Push to central helm-charts repo
         uses: cpina/github-action-push-to-another-repository@v1.7.2
