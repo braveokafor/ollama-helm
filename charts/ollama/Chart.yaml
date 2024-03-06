@@ -1,8 +1,8 @@
 annotations:
   licenses: MIT
 apiVersion: v2
-appVersion: 0.1.27
-version: 0.1.0
+appVersion: 0.1.28
+version: 0.1.1
 name: ollama
 description: "Chart to deploy Ollama, a Client for running Large Language Models (LLM)."
 home: https://ollama.ai/
